@@ -14,7 +14,6 @@
   "plugins": [
     "react"
   ],
-  "extends": "react:recommended",
   "rules": {
     "quotes": 1,
     "camelcase": 1
