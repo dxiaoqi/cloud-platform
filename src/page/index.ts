@@ -1,5 +1,5 @@
-import Home from "./home"
-export default [
+import Home from "./home";
+const Routers = [
   {
     key: "index",
     path: "/",
@@ -8,3 +8,4 @@ export default [
     exact: true
   }
 ]
+export default Routers;

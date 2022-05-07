@@ -17,7 +17,6 @@ const RouterComponent = () => {
                 key={index}
                 path={item.path}
                 element={<item.component />}
-                exact={item.exact}
               />
             )
           })
