@@ -51,7 +51,6 @@
     flex-direction: column;
     justify-content: space-between;
     width: 240px;
-    height: 160px;
     margin: 10px;
     box-shadow: 8px 8px 20px 0 rgba(55,99,170,.1), -8px -8px 20px 0 #fff;;
     padding: 10px;
@@ -65,18 +64,31 @@
     }
     .product_list_item_info  {
       .product_title {
+        display: flex;
         font-size: 18px;
         font-weight: 500;
         margin: 6px 0px;
+        align-items: center;
       }
       .product_des {
+        height: 56px;
         font-size: 12px;
         font-weight: 400;
         color: #3e3e3e;
+        margin-bottom: 10px;
       }
       .product_list_item_btn {
         justify-content: flex-end;
       }
     }
+  }
+}
+.icon {
+  margin-right: 20px;
+  svg {
+    border-radius: 3px;
+    border: 2px solid #0061b2;
+    width: 40px;
+    height: 40px;
   }
 }

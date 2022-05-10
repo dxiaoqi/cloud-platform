@@ -6,10 +6,12 @@ import { getProductList } from '../../api'
 import bg from '../../assert/ai.jpg'
 import styles from "./index.module.scss";
 import { useNavigate } from "react-router-dom";
+import { FileImageOutlined, FileImageTwoTone } from "@ant-design/icons";
 type ProductType = {
   id: number;
   title: string;
   description: string;
+  icon?: React.ReactNode;
 }
 const Home: React.FC = (props) => {
   const [productList, setProductList] = useState<ProductType[]>([]);
@@ -57,7 +59,7 @@ const Home: React.FC = (props) => {
                       <img src={item.img} alt="" />
                     </div> */}
                     <div className={styles.product_list_item_info}>
-                      <p className={styles.product_title}>{item.title}</p>
+                      <p className={styles.product_title}><span className={styles.icon}>{item.icon}</span>{item.title}</p>
                       <p className={styles.product_des}>{item.description}</p>
                     </div>
                     <div>
