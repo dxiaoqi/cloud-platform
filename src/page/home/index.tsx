@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "antd";
+import { Button, Divider  } from "antd";
 import NavBar from "../../component/navbar";
 import Footer from "../../component/footer";
 import { getProductList } from '../../api'
+import bg from '../../assert/ai.jpg'
 import styles from "./index.module.scss";
 import { useNavigate } from "react-router-dom";
 type ProductType = {
@@ -34,13 +35,18 @@ const Home: React.FC = (props) => {
             <p className={styles.label}>
               图像、语音等领域内建立多模态全生态服务
             </p>
+            <div className={styles.doc_bt}>
+              <Button type='primary' size='large'>查看文档</Button>
+            </div>
           </div>
           <div className={styles.right}>
+            {/* <img src={bg} alt="background"/> */}
           </div>
         </div>
         <div className={styles.about_us}>
         
         </div>
+        <Divider className={styles.products_title} plain>产品功能</Divider>
         <div className={styles.product}>
           <div className={styles.product_list}>
             {
