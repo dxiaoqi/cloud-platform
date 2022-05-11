@@ -1,5 +1,6 @@
 import Home from "./home";
 import ProductPage from "./product";
+import Doc from './doc'
 const Routers = [
   {
     key: "index",
@@ -14,6 +15,13 @@ const Routers = [
     component: ProductPage,
     auth: false,
     exact: true
-  }
+  },
+  {
+    key: "doc",
+    path: "/doc",
+    component: Doc,
+    auth: false,
+    exact: true
+  },
 ]
 export default Routers;

@@ -9,10 +9,17 @@
     }
   }
 }
+.panel {
+  margin-left: 40px;
+  margin-bottom: 120px;
+}
 .product__container {
   padding: 100px;
   padding-top: 10px;
-  padding-bottom: 0xp;
+  padding-bottom: 0px;
+}
+.panel_content {
+  display: flex;
 }
 .panel_content_item {
   display: flex;

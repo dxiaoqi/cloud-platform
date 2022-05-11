@@ -25,6 +25,9 @@ const Home: React.FC = (props) => {
   const goProductPage = (id: number) => {
     navigator(`/product/${id}`);
   }
+  const goDoc =() => {
+    navigator('/doc');
+  }
   return (
     <div>
       <NavBar />
@@ -38,7 +41,7 @@ const Home: React.FC = (props) => {
               图像、语音等领域内建立多模态全生态服务
             </p>
             <div className={styles.doc_bt}>
-              <Button type='primary' size='large'>查看文档</Button>
+              <Button onClick={goDoc} type='primary' size='large'>查看文档</Button>
             </div>
           </div>
           <div className={styles.right}>
