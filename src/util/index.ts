@@ -9,3 +9,19 @@ export const fileByBase64 = (file: File, callback: (data: string | null | ArrayB
     }
   };
 }
+
+export const toDataURL = (src: string, callback: (data: string) => void)  => {
+  var img = new Image();
+  img.crossOrigin = 'Anonymous';
+  img.onload = function() {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var dataURL;
+    canvas.height = img.naturalHeight;
+    canvas.width = img.naturalHeight;
+    ctx?.drawImage(img, 0, 0);
+    dataURL = canvas.toDataURL();
+    callback(dataURL);
+  };
+  img.src = src;
+}

@@ -47,3 +47,70 @@ export const getProductList = () => new Promise(function(resolve, reject) {
   }]
   resolve(data);
 });
+
+export const getProductExperience = (): Promise<ProductExperience[]> => new Promise(function(reslove, reject) {
+  const data = [{
+    index: 0,
+    url: '/hair/style',
+    title: '换发型',
+    reqDes: JSON.stringify({
+      appid: "134134",
+      hairstyle: "xxxxx",
+      img: "xxx"
+    }),
+    resDes: JSON.stringify({
+      code: 200,
+      msg: "success",
+      data: "http://dafa/dafadf/adf/ad"
+    })
+  }, 
+  {
+    index: 1,
+    url: '/hair/line',
+    title: '换',
+    reqDes: JSON.stringify({
+      appid: "134134",
+      img: 'xxxx'
+    }),
+    resDes: JSON.stringify({
+      code: 200,
+      msg: "success",
+      data: "http://dafa/dafadf/adf/ad"
+    })
+  },
+  {
+    index: 2,
+    url: '/hair/overcrown',
+    title: '换地中海发型',
+    reqDes: JSON.stringify({
+      appid: "134134",
+      img: 'xxxx'
+    }),
+    resDes: JSON.stringify({
+      code: 200,
+      msg: "success",
+      data: "http://dafa/dafadf/adf/ad"
+    })
+  },
+  {
+    index: 3,
+    url: '/hair/color',
+    title: '换头发颜色',
+    reqDes: JSON.stringify({
+      appid: "134134",
+      haircolor1: 'xxxx',
+      haircolor2: 'xxxx',
+      type: 0,
+      label: 0,
+      img: 'xxxx',
+
+    }),
+    resDes: JSON.stringify({
+      code: 200,
+      msg: "success",
+      data: "http://dafa/dafadf/adf/ad"
+    })
+  }]
+  reslove(data);
+})
+export const genImg = (url, data) => HttpHandler.post(url, data)
