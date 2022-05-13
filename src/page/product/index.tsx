@@ -9,9 +9,11 @@ import styles from "./index.module.scss";
 import Search from "antd/lib/input/Search";
 import { genImg, getProductExperience } from "../../api";
 import { ProductExperience } from "../../types";
-import l from '../../assert/label.jpg'
+import testOne from '../../assert/face_video152166.jpg';
+import testTwo from '../../assert/face_video152735.jpg';
+import testThree from '../../assert/face_video153472.jpg';
 const { Panel } = Collapse;
-const testUrl = Array.from({length: 3}).map(e => l)
+const testUrl = [testOne, testTwo, testThree];
 
 const ProductPage: React.FC = () => {
   const [img, setImg] = useState<string>(testUrl[0]);
@@ -27,8 +29,10 @@ const ProductPage: React.FC = () => {
   };
   useEffect(() => {
     getProductExperience().then(res => {
+      // 获取列表，加载地址张
       setProductList(res);
       setProduct(res[0]);
+      selectPrefab(0);
     })
   }, [])
   const props = {
@@ -51,14 +55,21 @@ const ProductPage: React.FC = () => {
     console.log(key);
   }
   const setTabs = (value: string | number) => {
-    setProduct(productList.find(e => e.title === value));
+    let pos = 0;
+    setProduct(productList.find((e, index) => {
+      if (e.title === value) {
+        pos = index;
+        return true;
+      }
+    }));
+    selectPrefab(pos);
   }
   return (
     <div className={styles.page_container}>
       <NavBar />
       <div className={styles.product__container}>
         <div className={styles.title}>
-          <p>漫画脸</p>
+          <p>产品</p>
         </div>
         <div className={styles.panel}>
         <Segmented className={styles.seg} options={productList.map(e => e.title)} value={product?.title} onChange={setTabs}/>
