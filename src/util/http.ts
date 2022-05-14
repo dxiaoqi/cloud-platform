@@ -7,7 +7,7 @@ class HttpHandler {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `${localStorage.getItem(TOKEN_TAG)}`,
+        Authorization: "Basic "  + 'MTIzNDU2OjEyMzQ1Njc4OTA='//`${localStorage.getItem(TOKEN_TAG)}`,
       },
     });
   }

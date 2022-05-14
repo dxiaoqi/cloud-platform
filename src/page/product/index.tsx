@@ -3,7 +3,7 @@ import { Button, Image, Upload, Collapse, Select, Segmented } from 'antd';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import NavBar from "../../component/navbar";
 import Footer from "../../component/footer";
-import { fileByBase64, toDataURL } from '../../util';
+import { download, fileByBase64, toDataURL } from '../../util';
 import hairstyle from "../../assert/hairstyle";
 import { hairColor } from "../../constant";
 import cx from 'classnames';
@@ -14,22 +14,36 @@ import { ProductExperience } from "../../types";
 import testOne from '../../assert/face_video152166.jpg';
 import testTwo from '../../assert/face_video152735.jpg';
 import testThree from '../../assert/face_video153472.jpg';
+import { message } from 'antd';
+import { base6 } from "../../util/test";
 const { Panel } = Collapse;
 const testUrl = [testOne, testTwo, testThree];
 
 const ProductPage: React.FC = () => {
   let [req, setReq] = useState<any>({});
   const [img, setImg] = useState<string>(testUrl[0]);
+  const [resImg, setResImg] = useState<string>(testUrl[1]);
   const [productList, setProductList] = useState<ProductExperience[]>([]);
   const [product, setProduct] = useState<ProductExperience>();
   const [selectImg, setSelect] = useState<number | null>(0);
   const upload  = (e: any) => {
     console.log("Req", req)
     // setImg(e as string);
-    // genImg(product?.url, {
-    //   appid: '134134',
-    //   img: e
-    // })
+    const appID = localStorage.getItem("appID") || "123456";
+    product?.url && (req.img || req.url) && genImg(product?.url, {
+      appId: appID,
+      ...req,
+      img: base6//req.img?.split(',')[1]
+    }).then(res => {
+      console.log("res", res)
+      if (res.data.code === 200) {
+        // setResImg(testUrl[1])
+        // setResImg(res.data.data.img)
+      } else {
+        message.error('请求失败');
+      }
+      // setResImg(testUrl[1])
+    })
   };
   useEffect(() => {
     // 属性变更，去请求
@@ -54,7 +68,7 @@ const ProductPage: React.FC = () => {
     Object.keys(JSON.parse(reqDes)).forEach(key => {
       if (key === 'hairstyle') {
         // 如果是hairstyle，选第一个
-        selectHairStyle("20032__1204_0_human");
+        selectHairStyle("2f7c9ea82062e7c3cffccbdab121431d");
       }
       if (['haircolor1', 'haircolor2'].includes(key)) {
         // 如果是haircolor，选第一个
@@ -74,11 +88,14 @@ const ProductPage: React.FC = () => {
   const selectHairImg = (img: string) => {
     // base 64
     req.img = img;
+ //   setImg(img);
     setReq(Object.assign({}, req));
   }
   const props = {
     beforeUpload: (file : any) => {
       fileByBase64(file, e => {
+        //没有选择
+        setImg(e as string);
         setSelect(null);
         selectHairImg((e as string));
       })
@@ -89,6 +106,7 @@ const ProductPage: React.FC = () => {
   const selectPrefab = (id: number) => {
     // 设置Index，img
     setSelect(id);
+    setImg(testUrl[id]);
     toDataURL(testUrl[id], e => {
       selectHairImg(e);
     })
@@ -116,7 +134,7 @@ const ProductPage: React.FC = () => {
   const selectHairStyle = (value: string) => {
     // 设置发行
     console.log(value)
-    req.hairStyle = value;
+    req.hairstyle = value;
     setReq(Object.assign({}, req));
   }
 
@@ -139,7 +157,7 @@ const ProductPage: React.FC = () => {
                   <div
                     key={`a${s}`}
                     onClick={() => { selectHairStyle(s) }}
-                    className={cx(styles.setting_item, req.hairStyle === s ? styles.active : '')}>
+                    className={cx(styles.setting_item, req.hairstyle === s ? styles.active : '')}>
                     <Image preview={false} src={(hairstyle as any)[s]} width={120} height={120} />
                   </div>
                 )
@@ -182,8 +200,8 @@ const ProductPage: React.FC = () => {
                 <div className={styles.panel_content_item_img}>
                   <ReactCompareSlider
                     className={styles.img_slider}
-                    itemOne={<ReactCompareSliderImage src={img} width={400} height={400} srcSet={img} alt="Image one" />}
-                    itemTwo={<ReactCompareSliderImage src={img} width={400} height={400} srcSet={img} alt="Image two" />}
+                    itemOne={<ReactCompareSliderImage src={img} srcSet={img} alt="Image one" />}
+                    itemTwo={<ReactCompareSliderImage src={resImg} srcSet={resImg} alt="Image two" />}
                   />
                 </div>
                 <div className={styles.upload}>
@@ -197,7 +215,9 @@ const ProductPage: React.FC = () => {
                     size="middle"
                     onSearch={e => setImage(e)}
                   />
-                  <Button>下载</Button>
+                  <Button onClick={() => {
+                    download(resImg);
+                  }}>下载</Button>
                 </div>
               </div>
               <div className={styles.setting}>

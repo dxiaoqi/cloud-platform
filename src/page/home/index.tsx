@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Button, Divider  } from "antd";
+import { Button, Divider, message  } from "antd";
 import NavBar from "../../component/navbar";
 import Footer from "../../component/footer";
+import auth from "../../store/auth";
 import { getProductList } from '../../api'
-import bg from '../../assert/ai.jpg'
 import styles from "./index.module.scss";
 import { useNavigate } from "react-router-dom";
-import { FileImageOutlined, FileImageTwoTone } from "@ant-design/icons";
 type ProductType = {
   id: number;
   title: string;
   description: string;
   icon?: React.ReactNode;
+  open? : boolean;
 }
 const Home: React.FC = (props) => {
   const [productList, setProductList] = useState<ProductType[]>([]);
@@ -26,7 +26,11 @@ const Home: React.FC = (props) => {
     navigator(`/product/${id}`);
   }
   const goDoc =() => {
-    navigator('/doc');
+    if (auth.isLogin()) {
+      navigator('/doc');
+    } else {
+      message.error('请先登录');
+    }
   }
   return (
     <div>
@@ -66,8 +70,8 @@ const Home: React.FC = (props) => {
                       <p className={styles.product_des}>{item.description}</p>
                     </div>
                     <div>
-                      <Button onClick={() => {goProductPage(item.id)}} className={styles.product_list_item_btn}>
-                        查看详情
+                      <Button onClick={() => {item?.open && goProductPage(item.id)}} className={styles.product_list_item_btn}>
+                        {item?.open ? "查看详情" : "尽请期待"}
                       </Button>
                     </div>
                   </div>

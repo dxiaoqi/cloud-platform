@@ -15,5 +15,8 @@ class Auth {
   @action setUser = (user: any | null) => {
     this.user = user;
   }
+  isLogin = () => {
+    return localStorage.getItem(TOKEN_TAG)
+  }
 }
 export default new Auth();

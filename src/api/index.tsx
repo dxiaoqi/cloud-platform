@@ -6,7 +6,8 @@ export const getProductList = () => new Promise(function(resolve, reject) {
   const data = [{
     title: '图像处理',
     description: '人脸重建，语义分割，目标检测，图像超分',
-    icon: Img
+    icon: Img,
+    open: true
   }, {
     title: '内容生成',
     description: '动漫脸, 超清换脸',

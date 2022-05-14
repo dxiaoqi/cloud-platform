@@ -17,8 +17,8 @@ export const toDataURL = (src: string, callback: (data: string) => void)  => {
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
     var dataURL;
-    canvas.height = img.naturalHeight;
-    canvas.width = img.naturalHeight;
+    canvas.height = 400;
+    canvas.width = 400;
     ctx?.drawImage(img, 0, 0);
     dataURL = canvas.toDataURL();
     callback(dataURL);
