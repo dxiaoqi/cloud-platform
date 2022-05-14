@@ -57,9 +57,6 @@
   .setting_item {
     margin: 10px;
     cursor: pointer;
-    &.active {
-      box-shadow: 0px 0px 4px 1px #0d0c22;
-    }
   }
 }
 .des {
@@ -69,4 +66,47 @@
 }
 .seg {
   margin: 20px 0px!important;
+}
+.setting_item {
+  .hairColor {
+    display: flex;
+    align-items: center;
+    p {
+      margin-bottom: 0px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+}
+.proto_list {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  label {
+    display: block;
+    width: 80px;
+    margin-right: 5px;
+  }
+}
+.haircolor {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+.active {
+  box-shadow: 0px 0px 4px 1px #0d0c22;
+}
+.optional {
+  margin: 10px 0px;
+  border:2px solid #1890ff;
+  padding: 5px;
+  border-top: 4px;
+  border-bottom: 4px;
+  .option_title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5px;
+  }
 }

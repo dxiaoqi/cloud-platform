@@ -25,3 +25,9 @@ export const toDataURL = (src: string, callback: (data: string) => void)  => {
   };
   img.src = src;
 }
+
+export const download = (url: string) => {
+  var a = document.createElement('a');
+  a.href = url;
+  a.click();
+}
