@@ -2,6 +2,7 @@
 import HttpHandler from "../util/http";
 import { Img, Picture, Meta, Face, Splite, Target, SuperPoint, CartonFace, PurgFace, Virtual } from "../assert/svg";
 // export const Login = HttpHandler.get("/login");
+import { base6 } from '../util/test';
 export const getProductList = () => new Promise(function(resolve, reject) {
   const data = [{
     title: '图像处理',
@@ -54,6 +55,7 @@ export const getProductExperience = (): Promise<ProductExperience[]> => new Prom
     index: 0,
     url: '/hair/style',
     title: '换发型',
+    testUrls: base6[0],
     reqDes: JSON.stringify({
       appid: "134134",
       hairstyle: "xxxxx",
@@ -68,7 +70,8 @@ export const getProductExperience = (): Promise<ProductExperience[]> => new Prom
   {
     index: 1,
     url: '/hair/line',
-    title: '换',
+    title: '发际线',
+    testUrls: base6[1],
     reqDes: JSON.stringify({
       appid: "134134",
       img: 'xxxx'
@@ -83,6 +86,7 @@ export const getProductExperience = (): Promise<ProductExperience[]> => new Prom
     index: 2,
     url: '/hair/overcrown',
     title: '换地中海发型',
+    testUrls: base6[2],
     reqDes: JSON.stringify({
       appid: "134134",
       img: 'xxxx'
@@ -97,6 +101,7 @@ export const getProductExperience = (): Promise<ProductExperience[]> => new Prom
     index: 3,
     url: '/hair/color',
     title: '换头发颜色',
+    testUrls: base6[1],
     reqDes: JSON.stringify({
       appid: "134134",
       haircolor1: 'xxxx',

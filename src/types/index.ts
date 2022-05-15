@@ -4,4 +4,5 @@ export interface ProductExperience {
   title: string,
   reqDes: string,
   resDes: string
+  testUrls?: string[]
 }

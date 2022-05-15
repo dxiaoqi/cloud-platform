@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Image, Upload, Collapse, Spin, Segmented } from 'antd';
+import { Button, Image, Upload, Collapse, Spin, Segmented, Select } from 'antd';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import NavBar from "../../component/navbar";
 import Footer from "../../component/footer";
@@ -12,22 +12,26 @@ import Search from "antd/lib/input/Search";
 import { genImg, getProductExperience } from "../../api";
 import { ProductExperience } from "../../types";
 import { message } from 'antd';
-import { base6 } from "../../util/test";
 const { Panel } = Collapse;
-const testUrl = ['data:image/jpge;base64,' + base6];
 
 const ProductPage: React.FC = () => {
   let [req, setReq] = useState<any>({});
-  const [img, setImg] = useState<string>(base6);
-  const [resImg, setResImg] = useState<string>(base6);
+  const [img, setImg] = useState<string>('');
+  const [resImg, setResImg] = useState<string>('');
   const [productList, setProductList] = useState<ProductExperience[]>([]);
   const [product, setProduct] = useState<ProductExperience>();
   const [selectImg, setSelect] = useState<number | null>(0);
   const [spinning, setSpinning] = useState<boolean>(false);
+  const [testUrl, setTestUrl] = useState<string[]>(['']);
+  console.log(product);
   const upload  = (e: any) => {
     setSpinning(true);
     setResImg('');
     const appID = localStorage.getItem("appID") || "123456";
+    if (!appID) {
+      message.error("请先申请appID");
+      return
+    }
     product?.url && (req.img || req.url) && genImg(product?.url, {
       appId: appID,
       ...req,
@@ -52,12 +56,15 @@ const ProductPage: React.FC = () => {
   useEffect(() => {
     getProductExperience().then(res => {
       // 获取列表，加载地址张
+      const t = res[0].testUrls?.map((u: string) => 'data:image/jpge;base64,' + u);
       setProductList(res);
       setProduct(res[0]);
+
       // 初始默认属性
       reset(res[0]);
       // 预览
-      selectPrefab(0);
+      setTestUrl(t)
+      selectPrefab(0, res[0]);
     })
   }, [])
 
@@ -102,11 +109,12 @@ const ProductPage: React.FC = () => {
     }
   };
 
-  const selectPrefab = (id: number) => {
+  const selectPrefab = (id: number, p: ProductExperience) => {
     // 设置Index，img
+    const t = p?.testUrls?.map(u => 'data:image/jpge;base64,' + u);
     setSelect(id);
-    setImg(testUrl[id]);
-    selectHairImg(testUrl[id]);
+    t && setImg(t[id]);
+    t && selectHairImg(t[id]);
     // toDataURL(testUrl[id], e => {
     //   selectHairImg(e);
     // })
@@ -124,7 +132,9 @@ const ProductPage: React.FC = () => {
     }));
     // 需要重置一波
     reset(productList[pos]);
-    selectPrefab(0);
+    const t = productList[pos].testUrls?.map(u => 'data:image/jpge;base64,' + u) || [];
+    selectPrefab(0, productList[pos]);
+    setTestUrl(t)
   }
   const selectHairColor = (color: string, type: string) => {
     // 设置颜色
@@ -171,7 +181,7 @@ const ProductPage: React.FC = () => {
       if (e === 'haircolor2' || e === 'haircolor1') {
         return (
           <div className={styles.hairColor}>
-            <p>{e} :</p>
+            <p>{e === 'haircolor2' ? '颜色1' : '颜色2'} :</p>
             {Object.keys(hairColor).map(c => <span onClick={() => {
               selectHairColor(c, e)
             }}
@@ -183,8 +193,43 @@ const ProductPage: React.FC = () => {
           </div>
         )
       }
+      if (e === 'type') {
+        return (
+          <div className={styles.hairType}>
+            <span>颜色类型 ： </span>
+            <Select style={{ width: 100}} value={req.type} onChange={(val) => {
+              req.type = val;
+              console.log('type', val)
+              setReq(Object.assign({}, req));
+            }}>
+              <Select.Option value={0}>纯色</Select.Option>
+              <Select.Option value={1}>双拼色</Select.Option>
+              <Select.Option value={2}>渐变色</Select.Option>
+            </Select>
+          </div>
+        )
+      }
+      if (e === 'label' && req.type === 2) {
+
+        return (
+          <div className={styles.hairType}>
+            <span>渐变类型 ： </span>
+            <Select style={{ width: 100}} value={req.label} onChange={val => {
+              req.label = val;
+              setReq(Object.assign({}, req));
+            }}>
+              <Select.Option value={0}>横向</Select.Option>
+              <Select.Option value={1}>纵向</Select.Option>
+            </Select>
+          </div>
+        )
+      }
       return null;
     })
+  }
+
+  const renderType = () => {
+
   }
   return (
     <div className={styles.page_container}>
@@ -229,9 +274,9 @@ const ProductPage: React.FC = () => {
               <div className={styles.setting}>
                 <div className={styles.testimg}>
                   {
-                    testUrl.map((e, i) => {
+                    testUrl?.map((e, i) => {
                       return (
-                        <div onClick={() => { selectPrefab(i) }} className={cx(styles.setting_item, selectImg === i ? styles.active : '')} key={i}>
+                        <div onClick={() => { selectPrefab(i, product as ProductExperience) }} className={cx(styles.setting_item, selectImg === i ? styles.active : '')} key={i}>
                           <Image preview={false} src={e} width={120} height={120} />
                         </div>
                       )
