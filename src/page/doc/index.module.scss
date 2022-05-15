@@ -4,6 +4,14 @@
   flex-direction: column;
 }
 .container {
-  flex: 1;
   padding: 10px;
+  padding-left: 100px;
+  width: 70%;
+  margin-bottom: 60px;
+}
+.panel {
+  padding: 10px 6px;
+  border: 1px solid lightblue;
+  background-color: aliceblue;
+  margin: 10px 0px;
 }
