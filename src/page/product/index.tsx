@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Image, Upload, Collapse, Select, Segmented } from 'antd';
+import { Button, Image, Upload, Collapse, Spin, Segmented } from 'antd';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import NavBar from "../../component/navbar";
 import Footer from "../../component/footer";
@@ -11,38 +11,37 @@ import styles from "./index.module.scss";
 import Search from "antd/lib/input/Search";
 import { genImg, getProductExperience } from "../../api";
 import { ProductExperience } from "../../types";
-import testOne from '../../assert/face_video152166.jpg';
-import testTwo from '../../assert/face_video152735.jpg';
-import testThree from '../../assert/face_video153472.jpg';
 import { message } from 'antd';
 import { base6 } from "../../util/test";
 const { Panel } = Collapse;
-const testUrl = [testOne, testTwo, testThree];
+const testUrl = ['data:image/jpge;base64,' + base6];
 
 const ProductPage: React.FC = () => {
   let [req, setReq] = useState<any>({});
-  const [img, setImg] = useState<string>(testUrl[0]);
-  const [resImg, setResImg] = useState<string>(testUrl[1]);
+  const [img, setImg] = useState<string>(base6);
+  const [resImg, setResImg] = useState<string>(base6);
   const [productList, setProductList] = useState<ProductExperience[]>([]);
   const [product, setProduct] = useState<ProductExperience>();
   const [selectImg, setSelect] = useState<number | null>(0);
+  const [spinning, setSpinning] = useState<boolean>(false);
   const upload  = (e: any) => {
-    console.log("Req", req)
-    // setImg(e as string);
+    setSpinning(true);
+    setResImg('');
     const appID = localStorage.getItem("appID") || "123456";
     product?.url && (req.img || req.url) && genImg(product?.url, {
       appId: appID,
       ...req,
-      img: base6//req.img?.split(',')[1]
+      img: req.img?.split(',')[1]
     }).then(res => {
-      console.log("res", res)
+      setSpinning(false);
       if (res.data.code === 200) {
-        // setResImg(testUrl[1])
-        // setResImg(res.data.data.img)
+        setResImg(res.data.data.img)
       } else {
         message.error('请求失败');
       }
-      // setResImg(testUrl[1])
+    }).catch(err => {
+      message.error('请求失败');
+      setSpinning(true);
     })
   };
   useEffect(() => {
@@ -72,7 +71,7 @@ const ProductPage: React.FC = () => {
       }
       if (['haircolor1', 'haircolor2'].includes(key)) {
         // 如果是haircolor，选第一个
-        selectHairColor('333333', key);
+        selectHairColor('HDR01_885555', key);
       }
       if (key === 'label') {
         req.label = 0;
@@ -107,9 +106,10 @@ const ProductPage: React.FC = () => {
     // 设置Index，img
     setSelect(id);
     setImg(testUrl[id]);
-    toDataURL(testUrl[id], e => {
-      selectHairImg(e);
-    })
+    selectHairImg(testUrl[id]);
+    // toDataURL(testUrl[id], e => {
+    //   selectHairImg(e);
+    // })
   }
   const onCollapseChange = (key: string | string[]) => {
     console.log(key);
@@ -127,19 +127,21 @@ const ProductPage: React.FC = () => {
     selectPrefab(0);
   }
   const selectHairColor = (color: string, type: string) => {
-    console.log(color, type)
+    // 设置颜色
     req[type] = color;
     setReq(Object.assign({}, req));
   }
   const selectHairStyle = (value: string) => {
     // 设置发行
-    console.log(value)
     req.hairstyle = value;
     setReq(Object.assign({}, req));
   }
 
   const setImage = (value: string) => {
+    // 设置url
     req.url = value;
+    req.img = '';
+    setImg(value);
     setReq(Object.assign({}, req));
   }
   const renderProto = (): any => {
@@ -198,11 +200,15 @@ const ProductPage: React.FC = () => {
             <div className={styles.panel_content_item}>
               <div className={styles.panel_content_left}>
                 <div className={styles.panel_content_item_img}>
-                  <ReactCompareSlider
-                    className={styles.img_slider}
-                    itemOne={<ReactCompareSliderImage src={img} srcSet={img} alt="Image one" />}
-                    itemTwo={<ReactCompareSliderImage src={resImg} srcSet={resImg} alt="Image two" />}
-                  />
+                  <Spin
+                    spinning={spinning}
+                    tip="生成中">
+                    <ReactCompareSlider
+                      className={styles.img_slider}
+                      itemOne={<ReactCompareSliderImage src={img} srcSet={img} alt="Image one" />}
+                      itemTwo={<ReactCompareSliderImage src={resImg} srcSet={resImg} alt="Image two" />}
+                    />
+                  </Spin>
                 </div>
                 <div className={styles.upload}>
                   <Upload {...props}>
