@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Image, Upload, Collapse, Spin, Segmented, Select } from 'antd';
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import { TOKEN_TAG } from '../../constant';
 import NavBar from "../../component/navbar";
 import Footer from "../../component/footer";
 import { download, fileByBase64, toDataURL } from '../../util';
@@ -23,15 +24,19 @@ const ProductPage: React.FC = () => {
   const [selectImg, setSelect] = useState<number | null>(0);
   const [spinning, setSpinning] = useState<boolean>(false);
   const [testUrl, setTestUrl] = useState<string[]>(['']);
-  console.log(product);
+
   const upload  = (e: any) => {
-    setSpinning(true);
-    setResImg('');
     const appID = localStorage.getItem("appID") || "123456";
+    const auth = localStorage.getItem(TOKEN_TAG);
     if (!appID) {
       message.error("请先申请appID");
       return
     }
+    if (!auth) {
+      message.error("请先登录");
+      return
+    }
+    setSpinning(true);
     product?.url && (req.img || req.url) && genImg(product?.url, {
       appId: appID,
       ...req,
@@ -48,10 +53,6 @@ const ProductPage: React.FC = () => {
       setSpinning(true);
     })
   };
-  useEffect(() => {
-    // 属性变更，去请求
-    upload(0);
-  }, [product, req]);
 
   useEffect(() => {
     getProductExperience().then(res => {
@@ -65,6 +66,7 @@ const ProductPage: React.FC = () => {
       // 预览
       setTestUrl(t)
       selectPrefab(0, res[0]);
+      setResImg(t[0]);
     })
   }, [])
 
@@ -102,6 +104,7 @@ const ProductPage: React.FC = () => {
       fileByBase64(file, e => {
         //没有选择
         setImg(e as string);
+        setResImg(e as string);
         setSelect(null);
         selectHairImg((e as string));
       })
@@ -134,6 +137,7 @@ const ProductPage: React.FC = () => {
     reset(productList[pos]);
     const t = productList[pos].testUrls?.map(u => 'data:image/jpge;base64,' + u) || [];
     selectPrefab(0, productList[pos]);
+    setResImg(t[0]);
     setTestUrl(t)
   }
   const selectHairColor = (color: string, type: string) => {
@@ -149,10 +153,14 @@ const ProductPage: React.FC = () => {
 
   const setImage = (value: string) => {
     // 设置url
-    req.url = value;
-    req.img = '';
-    setImg(value);
-    setReq(Object.assign({}, req));
+    if(value) {
+      req.url = value;
+      req.img = '';
+      setImg(value);
+      setResImg(value);
+      setReq(Object.assign({}, req));
+    }
+    upload(0);
   }
   const renderProto = (): any => {
     // 选择后条件，有一个默认的
@@ -257,12 +265,12 @@ const ProductPage: React.FC = () => {
                 </div>
                 <div className={styles.upload}>
                   <Upload {...props}>
-                    <Button type='primary'>上传</Button>
+                    <Button type='primary'>本地上传</Button>
                   </Upload>
                   <Search
                     className={styles.search}
-                    placeholder="输入网址"
-                    enterButton="提交"
+                    placeholder="输入图片地址"
+                    enterButton="测试"
                     size="middle"
                     onSearch={e => setImage(e)}
                   />
@@ -276,7 +284,11 @@ const ProductPage: React.FC = () => {
                   {
                     testUrl?.map((e, i) => {
                       return (
-                        <div onClick={() => { selectPrefab(i, product as ProductExperience) }} className={cx(styles.setting_item, selectImg === i ? styles.active : '')} key={i}>
+                        <div onClick={() => { 
+                          selectPrefab(i, product as ProductExperience)
+                          setResImg(e) 
+                          }}
+                          className={cx(styles.setting_item, selectImg === i ? styles.active : '')} key={i}>
                           <Image preview={false} src={e} width={120} height={120} />
                         </div>
                       )

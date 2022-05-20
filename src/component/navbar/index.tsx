@@ -13,7 +13,7 @@ const NavBar: React.FC = props=> {
   return (
     <div className={styles.navbar__container}>
       <div onClick={goHome} className={styles.navbar__logo}>
-        AI
+        首页
       </div>
       <div className={styles.navbar_login}>
         <Button type='text' onClick={goDoc}>产品文档</Button>
