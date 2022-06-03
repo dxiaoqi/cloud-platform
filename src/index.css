@@ -1,9 +1,7 @@
 @import '~antd/dist/antd.css';
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: #f6f6f6; */
@@ -13,9 +11,27 @@ html {
   height: 100%;
 }
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 #root {
   height: 100%;
+}
+.login-form {
+  margin: 10px  0;
+}
+.ant-form-item-label {
+  text-align: left !important;
+}
+.ant-card-body {
+  padding: 10px;
+  width: 100%;
+}
+.ant-btn-group {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ant-tabs-content-holder {
+  background: #fff;
 }

@@ -1,0 +1,79 @@
+.purchase__container {
+    height: 100%;
+    padding: 24px;
+    .purchase__header {
+        display: flex;
+        justify-content: space-between;
+        span {
+            i {
+                font-style: normal;
+                font-size: 24px;
+            }
+        }
+    }
+    .purchase__body {
+        padding: 12px 0;
+        .purchase__body_title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .purchase__body_title::before {
+            content: "";
+            border: 3px solid #1890FF;
+            margin: 0 5px 0 0;
+          }
+        .purchase__body_row {
+            margin: 10px;
+        }
+          .purchase__body_card {
+              background: #f4f4f5;
+              border: 2px solid #1890FF;
+              display: flex;
+              justify-content: space-between;
+              .purchase__card_p {
+                     width: 100%;
+                     display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+              }
+          }
+         .purchase__body_number {
+            background: #f4f4f5;
+            border: 2px solid #1890FF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .purchase__number {
+                width: 30%;
+                text-align: center;
+            }
+         }
+          .purchase__body_col {
+              display: flex;
+              justify-content: space-between;
+          }
+    }
+    .purchase__footer {
+        position: fixed;
+        bottom: 0;
+        padding: 12px;
+        width: 100%;
+        border-top: 1px solid #ccc;
+        box-shadow: 0 -4px 4px -2px #e4e9f0;
+        .purchase__footer_header {
+            font-size: 18px;
+            font-weight: 600;
+            .purchase__footer_header_col {
+                color: orange;
+                i {
+                    font-style: normal;
+                }
+            }
+        }
+        .purchase__body_title::before {
+            content: "";
+            border: 3px solid #1890FF;
+            margin: 0 5px 0 0;
+          }
+    }
+}

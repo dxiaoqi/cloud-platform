@@ -5,20 +5,28 @@ import {
 } from "react-router-dom";
 import React from "react";
 import RouteList from "./page"
- 
+const allPath = () => {
+  let paths = RouteList;
+  RouteList.forEach((item: any) => {
+      if (item.children !== undefined && item.children.length > 0) {
+          paths = [...paths, ...item.children]
+      }
+  })
+  return paths;
+}
 const RouterComponent = () => {
   return (
     <Router>
       <Routes>
         {
-          RouteList.map((item, index) => {
+          allPath().map((item:any) => {           
             return (
-              <Route
-                key={index}
-                path={item.path}
-                element={<item.component />}
-              />
-            )
+                <Route
+                  key={item.key}
+                  path={item.path}
+                  element={<item.component />}
+                />
+              )          
           })
         }
       </Routes>

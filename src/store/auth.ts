@@ -9,14 +9,14 @@ class Auth {
   @action setToken = (token: string | null) => {
     this.token = token;
     if (token) {
-      localStorage.setItem(TOKEN_TAG, token);
+      sessionStorage.setItem(TOKEN_TAG, token);
     }
   }
   @action setUser = (user: any | null) => {
     this.user = user;
   }
   isLogin = () => {
-    return localStorage.getItem(TOKEN_TAG)
+    return sessionStorage.getItem(TOKEN_TAG)
   }
 }
 export default new Auth();

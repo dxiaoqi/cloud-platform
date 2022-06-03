@@ -8,7 +8,10 @@
   color: #fff;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: 8px 8px 20px 0 rgba(55,99,170,.1), -8px -8px 20px 0 #fff;;
+  box-shadow: 8px 8px 20px 0 rgba(55,99,170,.1), -8px -8px 20px 0 #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   .footer_info{
     display: flex;
     align-items: center;

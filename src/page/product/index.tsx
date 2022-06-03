@@ -27,7 +27,8 @@ const ProductPage: React.FC = () => {
 
   const upload  = (e: any) => {
     const appID = localStorage.getItem("appID") || "123456";
-    const auth = localStorage.getItem(TOKEN_TAG);
+    const auth = sessionStorage.getItem(TOKEN_TAG);
+    console.log('auth',auth)
     if (!appID) {
       message.error("请先申请appID");
       return
@@ -41,12 +42,14 @@ const ProductPage: React.FC = () => {
       appId: appID,
       ...req,
       img: req.img?.split(',')[1]
+    },{
+        headers: {'Authorization': "Basic "  + sessionStorage.getItem(TOKEN_TAG)}
     }).then(res => {
       setSpinning(false);
       if (res.data.code === 200) {
         setResImg(res.data.data.img)
       } else {
-        message.error('请求失败');
+        message.error('生成失败，失败原因：'+ res.data.msg);
       }
     }).catch(err => {
       message.error('请求失败');
@@ -275,7 +278,8 @@ const ProductPage: React.FC = () => {
                     onSearch={e => setImage(e)}
                   />
                   <Button onClick={() => {
-                    download(resImg);
+                    window.open(resImg,'blank')
+                    // download(resImg);
                   }}>下载</Button>
                 </div>
               </div>

@@ -43,14 +43,14 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin: 30px 0px;
+  margin: 30px 0px 60px;
   padding: 10px;
   background-color: #0057ff0f;
   .product_list_item_container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 240px;
+    width: 23%;
     margin: 10px;
     box-shadow: 8px 8px 20px 0 rgba(55,99,170,.1), -8px -8px 20px 0 #fff;;
     padding: 10px;

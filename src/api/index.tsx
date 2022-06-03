@@ -119,4 +119,4 @@ export const getProductExperience = (): Promise<ProductExperience[]> => new Prom
   }]
   reslove(data);
 })
-export const genImg = (url, data) => HttpHandler.post(url, data)
+export const genImg = (url, data,header) => HttpHandler.post(url, data,header)
