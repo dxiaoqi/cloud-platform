@@ -6,6 +6,8 @@ import OrderList from "./orderlist";
 import Purchase from "./purchase";
 import SubmitOrder from "./submitorder";
 import ControlBoard from "./menus";
+import videoAvatar from './video-avatar'
+import Language from './language'
 import UserComponent from "./user";
 import ApplicationComponent from "./application";
 import PasswordComponent from "./password";
@@ -95,5 +97,20 @@ const Routers = [
     auth: false,
     exact: true
   },
+  {
+    key: 'videoAvatar',
+    path: '/videoAvatar',
+    component: videoAvatar,
+    auth: false,
+    exact: true
+  }
+  , 
+  {
+    key: 'language',
+    path: '/language',
+    component: Language,
+    auth: false,
+    exact: true
+  }
 ]
 export default Routers;
