@@ -43,10 +43,17 @@ export const getProductList = () => new Promise(function(resolve, reject) {
     description: '通过特定AI技术，将用户人像与特定人像进行面部融合，使生成图同时具备用户人像与特定人像的外貌特征',
     icon: PurgFace
   }, {
-    title: '虚拟形象',
+    title: '语音驱动',
     description: '个性化定制3D虚拟形象，支持实时表情驱动、肢体驱动，可实现虚拟主播、虚拟教师、虚拟偶像等创新互动场景',
-    icon: Virtual
-  }]
+    icon: Virtual,    
+    open: true
+  },
+  // {
+  //   title: '虚拟形象',
+  //   description: '个性化定制3D虚拟形象，支持实时表情驱动、肢体驱动，可实现虚拟主播、虚拟教师、虚拟偶像等创新互动场景',
+  //   icon: Virtual
+  // }
+]
   resolve(data);
 });
 

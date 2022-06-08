@@ -12,6 +12,9 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+  .footerLogo {
+    margin-right: 20px;
+  }
   .footer_info{
     display: flex;
     align-items: center;

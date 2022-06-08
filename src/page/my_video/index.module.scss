@@ -1,0 +1,47 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .avatar {
+    margin: 10px 0px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .des {
+    width: 60%;
+    line-height: 30px;
+    font-size: 24px;
+    color: lightgrey;
+    text-align: center;
+  }
+ .selectVideo {
+   width: 80%;
+   display: flex;
+   overflow: auto;
+   .single {
+     min-width: 24%;
+     height: 140px;
+     background: grey;
+     margin:  0 5px;
+     video {
+       width: 100%;
+     }
+   }
+ }
+ .playerVideo {
+   width: 50%;
+   height: 260px;
+   background: grey;
+   margin-top: 15px;
+   video {
+     width: 100%;
+   }
+ }
+}
+.modal {
+  video {
+    width: 100%;
+  }
+}

@@ -7,10 +7,13 @@ import Purchase from "./purchase";
 import SubmitOrder from "./submitorder";
 import ControlBoard from "./menus";
 import videoAvatar from './video-avatar'
+import VideoPlayer from './my_video'
 import Language from './language'
+import VideoDash from './video_dash'
 import UserComponent from "./user";
 import ApplicationComponent from "./application";
 import PasswordComponent from "./password";
+import ProductVideo from "./produce_video";
 import Doc from './doc'
 const Routers = [
   {
@@ -106,9 +109,33 @@ const Routers = [
   }
   , 
   {
+    key: 'videoDash',
+    path: '/videoDash',
+    component: VideoDash,
+    auth: false,
+    exact: true
+  }
+  , 
+  {
+    key: 'VideoPlayer',
+    path: '/videoPlayer',
+    component: VideoPlayer,
+    auth: false,
+    exact: true
+  }
+  , 
+  {
     key: 'language',
     path: '/language',
     component: Language,
+    auth: false,
+    exact: true
+  }
+  , 
+  {
+    key: 'productVideo',
+    path: '/productVideo',
+    component: ProductVideo,
     auth: false,
     exact: true
   }

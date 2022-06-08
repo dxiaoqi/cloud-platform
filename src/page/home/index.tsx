@@ -22,8 +22,13 @@ const Home: React.FC = (props) => {
     }
     );
   }, [])
-  const goProductPage = (id: number) => {
+  const goProductPage = (item: any) => {
+    const { id , title } = item || null
+    if(title === '语音驱动' ) {
+      navigator(`/videoDash`)
+    }else {
     navigator(`/product/${id}`);
+    }
   }
   const goDoc =() => {
     if (auth.isLogin()) {
@@ -70,7 +75,7 @@ const Home: React.FC = (props) => {
                       <p className={styles.product_des}>{item.description}</p>
                     </div>
                     <div>
-                      <Button onClick={() => {item?.open && goProductPage(item.id)}} className={styles.product_list_item_btn}>
+                      <Button onClick={() => {item?.open && goProductPage(item)}} className={styles.product_list_item_btn}>
                         {item?.open ? "查看详情" : "尽请期待"}
                       </Button>
                     </div>

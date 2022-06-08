@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  // background: #F2F2F2;
 }
 .navbar__logo {
   img {
@@ -37,6 +38,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color:#0057ff;
+  .navbar_login_cur {
+    color: orange;
+    &::after {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      background-color:orange;
+      border-radius: 50%;
+      margin: auto;
+    }
+  }
+  .navbar_login_btn {
+    color:#0057ff;
+  }
   i {
     font-style: normal;
   }

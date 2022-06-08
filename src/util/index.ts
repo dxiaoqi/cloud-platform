@@ -9,6 +9,18 @@ export const fileByBase64 = (file: File, callback: (data: string | null | ArrayB
     }
   };
 }
+export const fileByformdata = (file: File, callback: (data: string | null | ArrayBuffer) => void) => {
+  
+  const param = new FormData()
+  param.append('file', file)
+  console.log('param',param);
+  //  function (e:any) {
+  //   if (e.target) {
+  //     console.log(e?.target.result);
+  //     callback(e?.target?.result)
+  //   }
+  // };
+}
 
 export const toDataURL = (src: string, callback: (data: string) => void)  => {
   var img = new Image();
