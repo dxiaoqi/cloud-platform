@@ -26,7 +26,7 @@ const ProductPage: React.FC = () => {
   const [testUrl, setTestUrl] = useState<string[]>(['']);
 
   const upload  = (e: any) => {
-    const appID = localStorage.getItem("appID") || "123456";
+    const appID = sessionStorage.getItem("appID") || "123456";
     const auth = sessionStorage.getItem(TOKEN_TAG);
     console.log('auth',auth)
     if (!appID) {

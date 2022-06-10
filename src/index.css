@@ -59,3 +59,17 @@ code {
 .ant-tabs-content-holder {
   background: #fff;
 }
+.table-operation {
+  width: 1120px;
+  padding: 10px 0;
+}
+.table-operation>span {
+  color: red;
+  font-size:12px ;
+  float: left;
+}
+.table-operation>button {
+  color: #fff;
+  font-size:12px ;
+  float: right;
+}

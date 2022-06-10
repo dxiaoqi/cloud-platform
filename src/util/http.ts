@@ -3,7 +3,8 @@ import { TOKEN_TAG } from "../constant";
 class HttpHandler {
   constructor() {
     this.axios = axios.create({
-      baseURL: 'http://api.zhiyinmeta.com/v1/',
+      // baseURL: 'http://api.zhiyinmeta.com/v1/',
+      baseURL: 'http://file.zhiyinmeta.com',
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

@@ -30,7 +30,7 @@ const LoginComponent: React.FC = props => {
                   }).
                     then((res: any) => {
                         if (res.data && res.data.code === 200) {
-                            localStorage.setItem("appID",res.data.data.appId)
+                            sessionStorage.setItem("appID",res.data.data.appId)
                         }else {
                             message.error('应用信息查询失败，失败原因：'+res.data.msg)
                         }

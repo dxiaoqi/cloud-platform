@@ -205,7 +205,7 @@ const VideoDash: React.FC = () => {
                     </Row>
                 </div>
                 <div className={styles.footer}>
-                    <div className={styles.footerItem}>
+                <div className={styles.footerItem}>
                         <p>关于我们</p>
                     </div>
                     <div className={styles.footerItem}>
